@@ -1,0 +1,18 @@
+function gn{git init}
+# @args you can pass multi arguments for example
+# ga fileName1 fileName2 
+function add{git add @args}
+function commit { git commit -m @args }
+function gac{git add .;git commit -m @args}
+function gpm{git push origin master}
+function pull{git pull origin master}
+function gl{git log}
+function glo{git log --oneline}
+function gch{git checkout @args}
+
+# @args is optional to add argument
+function gb{git branch @args}
+function gs{git status}
+function gd{git diff}
+
+//Microsoft.PowerShell_profile.ps1
