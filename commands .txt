@@ -1,3 +1,5 @@
+### This is the setup for custom commands for gitbash
+
 function gn{git init}
 # @args you can pass multi arguments for example
 # ga fileName1 fileName2 
