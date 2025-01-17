@@ -1,0 +1,84 @@
+use test
+already on db test
+
+#### this is used to insert one record 
+db.NewData.insertOne({name:"pen",price:200});
+
+
+#### this is used to insert many data in single command
+db.NewData.insertMany([
+  {name:"image",price:20},
+  {name:"car",price:2000000}
+]);
+
+#### this is to display the data 
+db.NewData.find().pretty()
+db.NewData.findOne()
+db.NewData.find({name:"pen"})
+
+#### this is used to provide name in data
+db.NewData.distinct("name")
+[ 'car', 'image', 'pen' ]
+
+
+#### this will provide name and price
+db.NewData.find({price:{$gt:200}},{name:1,price:1})
+{
+  _id: ObjectId('678a111bf2c6cdfe6daae010'),
+  name: 'car',
+  price: 2000000
+}
+
+#### this will just provide name not the price
+db.NewData.find({price:{$gt:200}},{name:1})
+
+#### this will provide greater and equal to name 
+db.NewData.find({price:{$gte:200}},{name:1})
+
+#### this will sort the data by ascending order 
+db.NewData.find().sort({name:1})
+
+#### this will sort data by descending order
+db.NewData.find().sort({name:-1})
+
+#### this will help in printing the data in Array 
+db.NewData.find().toArray()
+
+#### this is used for getting the price greater than 20 and sorting it descending order in price
+db.NewData.find({price:{$gt:20}}).sort({price:-1})
+
+
+#### this is used to limit to display the data and sorting it in descending order
+db.NewData.find().sort({price:-1}).limit(2)
+db.NewData.find().limit(1)
+
+#### this is used for counting data as "pen"
+db.NewData.countDocuments({name:"pen"})
+
+
+#### implicit AND logic 
+db.NewData.find({name:"pen",price:200})
+used for price greater than 100 :-> db.NewData.find({name:"pen",price:{$gt:100}}) 
+                                    db.NewData.find({name:"pen",price:{$gte:100}})
+
+used for price lesser than 100 :-> db.NewData.find({name:"pen",price:{$lt:100}})
+
+#### OR logic
+used for finding price either less than 200 or name is pen -> db.NewData.find({$or:[{price:{$lt:200}},{name:"pen"}]})
+it display both the outputs
+
+#### Finding range
+used for getting range in between price -> db.NewData.find({price:{$gte:20,$lt:500}})  
+                                           db.NewData.find({name : "book" , price : {$gt : 80,$lt : 300 }})
+
+#### Update command 
+db.NewData.updateOne({name:"car"},{$set:{price:20000}})
+db.NewData.updateMany({name:"car"},{$set:{price:20000}})
+
+#### Increment command to increment the price by any price
+db.NewData.updateOne({name:"car"},{$inc:{price:20000}})
+
+#### Deletion command
+db.NewData.deleteOne({name:"car"})
+db.NewData.deleteMany({name:"car"})
+used to delete all the documents -> db.NewData.deleteMany({})
